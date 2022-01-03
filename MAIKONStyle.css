@@ -1,0 +1,186 @@
+
+header .container-tal{
+    display: flex;
+    width: 100%;
+    bottom: 100px;
+    background-color:rgb(248, 247, 247);
+    justify-content: space-around;
+    margin-bottom: 100px;
+}
+
+header .dan-inside{
+
+    display: inline-flex;
+    align-content: space-between;
+    
+}
+
+header .lan{
+    margin-left: 20px;
+    font-size: 18px;
+    margin-top: 20px;
+    text-decoration:none
+}
+
+.sec-t1{
+    background-color:rgb(248, 247, 247);
+}
+
+.sec-t2{
+    background-color:rgb(248, 247, 247);
+}
+.sec-t3{
+    background-color:rgb(248, 247, 247);
+}
+
+.tol {
+    display: flex;
+    flex-wrap: wrap;
+    align-content:center;
+
+}
+
+.sec-t2{
+    padding-top: 50px;
+}
+
+.sec-title{
+    font-size: 50px;
+}
+
+.sec-title2{
+    margin-top: 30px;
+    font-size: 25px;
+    color:rgb(61, 57, 57);
+}
+
+.sec-title3{
+    margin-top: 30px;
+    font-size: 50px;
+    color: white;
+    text-align: start;
+}
+
+.info-txt{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color:rgb(156, 150, 150);
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.info-txt2{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    color:white;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.link-gp{
+    align-items: center;
+}
+
+.colst{
+    width: 250px;
+    height: 450px;
+    background-color: white;
+}
+
+.theme-btn{
+    display: inline-block;
+    color: #fff;
+    background-color:rgb(131, 241, 131);
+    padding: 12px 20px 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.first-btn{
+    color:darkgrey;
+    background-color:rgb(248, 247, 247);
+    text-decoration: none;
+    padding: 12px 25px;
+    border: 1px rgb(61, 57, 57);
+}
+
+.first-btn2{
+    color: white;
+    background-color: rgb(74, 74, 243);
+    text-decoration: none;
+    padding: 12px 25px;
+    border: 1px rgb(61, 57, 57);
+}
+
+.watch-video{
+    color: darkgrey;
+    text-decoration: none;
+    padding: 12px 25px;
+}
+
+
+.pictext{
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+}
+
+.read-more{
+
+    margin-top: 40px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.num{
+    margin-top: 50px;
+    font-size: 50px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}
+
+.sec-t4{
+    background-color: rgb(74, 74, 243);
+}
+
+.small-blue{
+    width: 250px;
+    height: 200px;
+    background-color: rgb(85, 85, 241);
+    text-align: center;
+    border-radius: 5%
+}
+
+.step-title{
+    font-size: 45px;
+    font-weight: 400;
+    margin-top: 30px;
+
+}
+
+.photo{
+    margin-top: 150px;
+}
+
+.sec-t5txt{
+    margin-top: 150px;
+}
+
+.theme-btn2{
+    color: #fff;
+    background-color:rgb(131, 241, 131);
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 300;
+    text-decoration: none;
+    padding: 10px 10px;
+}
+
+.sec-t61{
+    justify-content: space-between;
+    align-items: center;
+}
