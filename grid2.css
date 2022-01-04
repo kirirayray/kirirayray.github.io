@@ -15,7 +15,8 @@
     }
 
         /* 屬性選擇器 col-全部套用以下內容 */
-    [class*='col-']{
+    [class*='col-']
+    [class*='row-cols'] > .col{
             padding-left: 15px;
             padding-right: 15px;
             box-sizing: border-box;
