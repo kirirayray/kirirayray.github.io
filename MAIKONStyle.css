@@ -419,6 +419,7 @@ header .lan{
         width: 300px;
         height: calc(100% - 90px);
         top: 90px;
+        border-top: 1px solid gray;
         /* opacity: 0; */
         }
     .dan-inside .first-btn0{
