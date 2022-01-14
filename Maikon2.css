@@ -1,0 +1,178 @@
+.linkco {
+    color: #fff;
+    background-color: #1fde82;
+    border: 1px solid #1fde82;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius:10%;
+}
+
+.title-1{
+    font-size: 34px;
+}
+
+.text-1{
+    font-size: 10px;
+}
+
+.fa-play{
+    color:grey;
+    font-size: 1.5em;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align:end;
+    width: 40px;
+    height: 40px;
+    border:  1px solid black;
+    border-radius: 50%;
+}
+
+.container .readlink{
+    font-size: 10px;
+    font-weight:bold;
+    text-decoration: none;
+    color:black;
+}
+
+.colst{
+    background-color: white;
+    padding: 22px;
+}
+
+.card-title{
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight:bold;
+}
+
+.card-text{
+    margin-top: 15px;
+    font-size: 12px;
+}
+/* .mt-10 {
+    margin-top: 10rem !important;
+} */
+
+.small-blue{
+    background-color: rgb(85, 85, 241);
+    text-align: center;
+    border-radius: 5%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 25px;
+}
+
+.sec4{
+    width: 100%;
+    background-color: rgb(74, 74, 243);
+    color: white;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.num{
+    margin-top: 50px;
+    font-size: 50px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}
+
+.text-2{
+    font-size: 10px;
+    margin-top: 70px;
+}
+
+.bluebt{
+    color: white;
+    border: 1px solid white;
+}
+
+.sec-title2{
+    margin-top: 30px;
+    font-size: 25px;
+    color:rgb(61, 57, 57);
+}
+
+.step-title{
+    font-size: 40px;
+    font-weight: 400;
+    margin-top: 30px;
+
+}
+
+.sec-t9{
+    background-color:rgb(248, 247, 247);
+    width: 100%;
+}
+
+
+
+.last-content{
+    font-size: 15px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.8;
+}
+
+.last-content a{
+    text-decoration: none;
+}
+
+.sec-t93{
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sec-t94{
+    flex-direction: row;
+}
+
+.media-icon li a{
+    color: rgb(168, 160, 160);
+    font-size: 1.0em;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align:end;
+    width: 40px;
+    height: 40px;
+    border:  2px solid rgb(168, 160, 160);
+    border-radius: 50%;
+}
+
+.media-icon{
+    display: flex;
+    margin-top: 20px;
+}
+
+.copyfoot{
+    display: contents;
+}
+
+.glory{
+    text-align: center;
+    text-decoration: none;
+    color: rgb(168, 160, 160);
+}
+
+.glory p,a{
+    text-decoration: none;
+    color: rgb(168, 160, 160);
+}
+
+/* 0完全透明 */
+.card-img-overlay {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.9;
+}
