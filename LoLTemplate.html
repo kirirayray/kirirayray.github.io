@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        .card {
+            border: 1px solid black;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .headshot {
+            overflow: hidden;
+        }
+
+        .card-title {
+            color: white;
+            background-color: black;
+            display: inline-block;
+            border-radius: 5px;
+            padding: 5px 15px 5px 15px;
+        }
+
+        .card-body {
+            background-color: #ffbf67;
+        }
+
+        .card:hover {
+            box-shadow: 8px 8px 15px #808080;
+            transform: translate(5px, 5px);
+        }
+
+        .card:hover img {
+            transform: scale(1.2);
+            transition: transform 0.5s;
+        }
+
+        .card:not(:hover) img {
+            transform: scale(1, 1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover .card-body {
+            background-color: lightgreen !important;
+        }
+
+        .card:hover .card-title {
+            color: black;
+            background-color: white !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='container-fluid'>
+        <div class='jumbotron bg-info'>
+            <h1>英雄聯盟</h1>
+        </div>
+
+        <div class='row'>
+
+        </div>
+    </div>
+
+    <template id="cardLOL">
+        <div class="card col-md-3 col-12 mb-3" style="width: 18rem;">
+            <img src="" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text"></p>
+                <button href="#" class="btn btn-primary" id="btn_det" data-toggle="modal"
+                            data-target="#exampleModal">詳細內容</button>
+                <button href="#" class="btn btn-danger"  id="btn_video">影片</button>
+            </div>
+        </div>
+    </template>
+
+        <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="LOLImage">
+                    <h1 id="description" class="text-primary"></h1>
+                    <p id="modaltext"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- vedio Modal -->
+    <div class="modal fade" id="vedioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe class="w-100" width="560" height="315" src="https://www.youtube.com/embed/0iiGWVhUqLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+
+
+    <script>
+        const url = "https://raw.githubusercontent.com/kirirayray/FileStorage/main/LoLJSON"
+
+        let cardTemp
+        let dataArray = []
+        const row = document.querySelector(".row")
+        const modalVedioTitle = document.querySelector('#vedioModal #modalTitle')
+
+        window.onload = function(){
+            cardTemp=document.querySelector('#cardLOL')
+            setLOL(url)
+
+        }
+
+        function setLOL(url){
+            let xhr = new XMLHttpRequest()
+            console.log(xhr)
+            xhr.onload = function(){
+                dataArray = this.response
+                console.log(dataArray)
+                Object.values(dataArray.data).forEach(function(item,index){
+                    let scard = getCard(item,index)
+
+                    row.append(scard)
+                })
+
+            }
+            xhr.open("GET",url)
+            xhr.responseType ="json"
+            xhr.send()
+        }
+
+        function getCard(data,index) {
+            let cloneCard = cardTemp.content.cloneNode(true);
+            cloneCard.querySelector("h5").innerText = `${index+1}-${data.id}-${data.name}-${data.title}`
+            cloneCard.querySelector("img").src = `https://cdngarenanow-a.akamaihd.net/games/lol/2020/LOLwebsite/champion/${data.id}_0.jpg`
+            cloneCard.querySelector("p").innerText = data.blurb
+
+            cloneCard.querySelector("#btn_det").addEventListener("click",function(){
+                let modal = document.getElementById("exampleModal")
+
+                modal.querySelector("h5").innerText=`${data.id}-${data.name}`
+
+                modal.querySelector("#LOLImage").src = `https://cdngarenanow-a.akamaihd.net/games/lol/2020/LOLwebsite/champion/${data.id}_0.jpg`
+                
+                modal.querySelector("#modaltext").innerHTML = `<p>HP:${data.stats.hp}</p><br><p>Movespeed:${data.stats.movespeed}</p><br><p>Armor:${data.stats.armor}</p><br><p>Spell Block:${data.stats.spellblock}</p><br><p>Attack Range:${data.stats.attackrange}</p>`
+                
+            })
+
+            cloneCard.querySelector('#btn_video').addEventListener('click', function() {
+                let modal = document.getElementById("videoModal")
+                modal.querySelector("h5").innerText = data.name + ' ' + data.id
+            })
+
+
+            return cloneCard
+        }
+
+        function setVedioModal(data) {
+                modalVedioTitle.innerText = data.name + ' ' + data.id
+            }
+    </script>
+
+</body>
+
+</html>
