@@ -76,7 +76,8 @@
                 <p class="card-text"></p>
                 <button href="#" class="btn btn-primary" id="btn_det" data-toggle="modal"
                             data-target="#exampleModal">詳細內容</button>
-                <button href="#" class="btn btn-danger"  id="btn_video">影片</button>
+                <button href="#" class="btn btn-danger"  id="btn_video" data-toggle="modal"
+                data-target="#videomodal">影片</button>
             </div>
         </div>
     </template>
@@ -105,19 +106,21 @@
     </div>
 
     <!-- vedio Modal -->
-    <div class="modal fade" id="vedioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="videomodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <iframe class="w-100" width="560" height="315" src="https://www.youtube.com/embed/0iiGWVhUqLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -141,7 +144,7 @@
         let cardTemp
         let dataArray = []
         const row = document.querySelector(".row")
-        const modalVedioTitle = document.querySelector('#vedioModal #modalTitle')
+        const modalVedioTitle = document.querySelector('#vdModal #modalTitle')
 
         window.onload = function(){
             cardTemp=document.querySelector('#cardLOL')
@@ -183,21 +186,20 @@
                 modal.querySelector("#modaltext").innerHTML = `<p>HP:${data.stats.hp}</p><br><p>Movespeed:${data.stats.movespeed}</p><br><p>Armor:${data.stats.armor}</p><br><p>Spell Block:${data.stats.spellblock}</p><br><p>Attack Range:${data.stats.attackrange}</p>`
                 
             })
+            
+            cloneCard.querySelector("#btn_video").addEventListener("click", function() {
+                let modal = document.getElementById("videomodal")
+                modal.querySelector("h5").innerText = `${data.id}-${data.name}`
 
-            cloneCard.querySelector('#btn_video').addEventListener('click', function() {
-                let modal = document.getElementById("videoModal")
-                modal.querySelector("h5").innerText = data.name + ' ' + data.id
             })
 
 
             return cloneCard
         }
 
-        function setVedioModal(data) {
-                modalVedioTitle.innerText = data.name + ' ' + data.id
-            }
     </script>
 
 </body>
 
 </html>
+
