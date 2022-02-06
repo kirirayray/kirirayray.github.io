@@ -104,19 +104,6 @@
                 div.append(showAB,showNum)
                 guessHistoryArea.append(div)
             }
-            // //用空字串做切割['1','2','3','4'] 用map把數字轉成INT [1,2,3,4]
-            // guess = guessInput.value.split('').map(x => parseInt(x))
-
-            // //交集 includes(x)也可以
-            // //indexOf(x)= -1代表沒找到 indexOf(x)!= -1代表有找到
-            // // let intersect = guess.filter(x => answer.includes(x))
-            // let intersect = guess.filter(x => answer.indexOf(x) != -1)
-
-            // //數字一樣 位置一樣
-            // let a = intersect.filter(x => answer.indexOf(x) == guess.indexOf(x)).length
-            // let b = intersect.length - a
-
-            // guessHistoryArea.innerHTML += `<p>${a}A${b}B | ${guess.join('')}</p>`
 
         }
 
