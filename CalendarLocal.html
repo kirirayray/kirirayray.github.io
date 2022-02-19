@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Calendar</title>
+
+    <style>
+        body {
+            background-color: burlywood;
+        }
+        .container{
+            background-color: #FFFFFB;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-10 text-center"> 
+                    <h1 class="year-month">0000年-00月</h1>
+                    <button type="button" class="btn btn-light" onclick="preciousMonth()">往上月</button>
+                    <button type="button" class="btn btn-light" onclick="nextMonth()">往下月</button>
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th>Sun</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 動態生成日期 -->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- //新增 -->
+    <div id="add-modal"class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="add-date"type="text">
+                    <input id="add-title"type="text">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">close</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="addTodoItem()">新增</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //修改 -->
+    <div id="edit-modal"class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">編輯</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick=""></button>
+                </div>
+                <div class="modal-body">
+                    <input id="edit-date"type="text">
+                    <input id="edit-title"type="text">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="editTodoItem()">編輯</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteTodoItem()">刪除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+        //今天
+        const today = new Date()
+
+        //年月日
+        let year = today.getFullYear()
+        let month = today.getMonth()
+        let date = today.getDate()
+        
+        let currentTodoIndex 
+
+        //DOM
+        const yearMonthText = document.querySelector('.year-month')
+        const dateArea = document.querySelector('tbody')
+        
+        //modal DOM 兩個大modal
+        const addModal = document.querySelector('#add-modal')
+        const editModal = document.querySelector('#edit-modal')
+
+        //modal-body Dom 身體裡面兩個框 
+        const addDateInput = document.querySelector('#add-date')
+        const addTitleInput = document.querySelector('#add-title')
+        const editDateInput = document.querySelector('#edit-date')
+        const editTitleInput = document.querySelector('#edit-title')
+
+        //window
+
+        window.onload = function () {
+            init()
+        }
+
+        function init() {
+
+            dateArea.innerHTML = ''
+
+            yearMonthText.innerText = `${year}年${month + 1}月`
+
+            //這個月第一天是禮拜幾
+            let firstDay = new Date(year, month, 1).getDay()
+            //這個月有幾天(知道這個月的最後一天就知道)
+            let dayOfMonth = new Date(year, month + 1, 0).getDate()
+
+            //ceil無條件進位
+            //從1號開始找 渲染幾列(總共的天數+第一天的星期幾/7 會有幾列)
+            let day = 1
+            let rows = Math.ceil((dayOfMonth + firstDay) / 7)
+
+            for (let row = 0; row < rows; row++) {
+                let tr = document.createElement('tr')
+                for (let col = 0; col < 7; col++) {
+                    let td = document.createElement('td')
+                    if (row == 0 && col < firstDay) {
+                        //上個月的日期格
+                        td.innerHTML = `<span class="outOfRange"></span>`
+                    }
+                    else {
+                        if (day <= dayOfMonth) {
+                            //本月的日期格
+                            td.innerText = day
+
+
+                            if (localStorage.getItem(`${year}-${month+1}-${day}`) != null){
+                                let ul = document.createElement('ul')
+
+                                let todoList = JSON.parse(localStorage.getItem(`${year}-${month+1}-${day}`))
+                                todoList.forEach((item, index) => {
+                                    let li = document.createElement('li')
+                                    li.innerText = item.title
+                                    //li項目做編輯
+                                    li.onclick = function(event){
+                                        bootstrap.Modal.getOrCreateInstance(editModal).show()
+                                        //點到哪個待辦項目索引
+                                        currentTodoIndex = index
+                                        editDateInput.value = `${year}-${month + 1}-${td.childNodes[0].data}`
+                                        editTitleInput.value = item.title
+
+                                        event.stopPropagation()
+                                    }
+
+                                    ul.append(li)
+                                })
+                                td.append(ul)
+                            }
+                            
+                            //bokstrap開啟modal
+                            //bootstrap.Modal.getOrCreateInstance(addModal).show()
+                            td.onclick = function(){
+                                bootstrap.Modal.getOrCreateInstance(addModal).show()
+                                addDateInput.value = `${year}-${month + 1}-${td.childNodes[0].data}`
+                            }
+                        }
+                        else {
+                            //下個月的日期格
+                            td.innerHTML = `<span class="outOfRange"></span>`
+                        }
+                        day++
+                    }
+                    tr.append(td)
+                }
+                dateArea.append(tr)
+            }
+        }
+
+        function preciousMonth() {
+            month--
+            //(防呆0-1=-1 month要變12月)
+            if (month == -1) {
+                month = 11
+                year--
+            }
+            init()
+        }
+
+        function nextMonth() {
+            month++
+            //(防呆 12 month要變1月→0)
+            if (month == 12) {
+                year++
+                month = 0
+                
+            }
+            init()
+        }
+
+        //新增行程
+        function addTodoItem(){
+            let date = addDateInput.value
+            let todoItem = addTitleInput.value
+
+            //組成一個物件
+            let todoObj={
+                title:todoItem
+            }
+
+            //設定可為多行程 date當key
+            let todoList=[]
+            if(localStorage.getItem(date) == null){
+                //那天原本沒行程
+                todoList.push(todoObj)
+            }
+            else{
+                //那天有行程
+                todoList = JSON.parse(localStorage.getItem(date))
+                todoList.push(todoObj)
+            }
+            //存入
+            localStorage.setItem(date,JSON.stringify(todoList))
+            //關視窗
+            bootstrap.Modal.getOrCreateInstance(addModal).hide()
+
+            init()
+        }
+
+        //修改行程
+        function editTodoItem(){
+            let date = editDateInput.value
+            let todoItem = editTitleInput.value
+
+            let todoList = JSON.parse(localStorage.getItem(date))
+            todoList[currentTodoIndex]={title:todoItem}
+
+            localStorage.setItem(date,JSON.stringify(todoList))
+
+            bootstrap.Modal.getOrCreateInstance(editModal).hide()
+
+            init()
+        }
+        //刪除
+        function deleteTodoItem(){
+            let date= editDateInput.value
+
+            let todoList = JSON.parse(localStorage.getItem(date))
+            todoList.splice(currentTodoIndex,1)
+
+            localStorage.setItem(date,JSON.stringify(todoList))
+
+            bootstrap.Modal.getOrCreateInstance(editModal).hide()
+
+            init()
+        }
+    </script>
+</body>
+
+</html>
